@@ -1,0 +1,74 @@
+-----------------------------------------------------------
+-- Guardian- A Simple FiveM Script, Made By Jordan.#2139 --
+-----------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+                  -- !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! --
+        -- DO NOT TOUCH THIS FILE OR YOU /WILL/ FUCK SHIT UP! EDIT THE CONFIG.LUA --
+-- DO NOT BE STUPID AND WHINE TO ME ABOUT THIS BEING BROKEN IF YOU TOUCHED THE LINES BELOW. --
+----------------------------------------------------------------------------------------------
+
+function ExtractIdentifiers(src)
+    local identifiers = {
+        steam = "",
+        ip = "",
+        discord = "",
+        license = "",
+        xbl = "",
+        live = ""
+    }
+
+    --Loop over all identifiers
+    for i = 0, GetNumPlayerIdentifiers(src) - 1 do
+        local id = GetPlayerIdentifier(src, i)
+
+        --Convert it to a nice table.
+        if string.find(id, "steam") then
+            identifiers.steam = id
+        elseif string.find(id, "ip") then
+            identifiers.ip = id
+        elseif string.find(id, "discord") then
+            identifiers.discord = id
+        elseif string.find(id, "license") then
+            identifiers.license = id
+        elseif string.find(id, "xbl") then
+            identifiers.xbl = id
+        elseif string.find(id, "live") then
+            identifiers.live = id
+        end
+    end
+
+    return identifiers
+end
+
+roleList = Config.WhitelistRoles;
+RoleTracker = {}
+
+AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
+    deferrals.defer()
+    local src = source
+    local identifierDiscord = "";
+	local discord = ExtractIdentifiers(src).discord:gsub("discord:", "");
+		for k, v in ipairs(GetPlayerIdentifiers(src)) do
+				if string.sub(v, 1, string.len("discord:")) == "discord:" then
+					identifierDiscord = v
+				end
+        end
+    if identifierDiscord then
+        local roleIDs = exports.Badger_Discord_API:GetDiscordRoles(src)
+        if not (roleIDs == false) then
+            for i = 1, #roleList do
+                for j = 1, #roleIDs do
+                    if exports.Badger_Discord_API:CheckEqual(roleList[i][1], roleIDs[j]) then
+                        print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i][1])
+                    else
+                        deferrals.done(Config.WhitelistYeet)
+                    end
+                end
+            end
+        else
+            deferrals.done(Config.DiscordYeet)
+            print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. " because they did not have Discord open")
+            CancelEvent();
+        end
+    end)
