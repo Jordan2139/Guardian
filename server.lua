@@ -10,12 +10,7 @@
 
 function ExtractIdentifiers(src)
     local identifiers = {
-        steam = "",
-        ip = "",
-        discord = "",
-        license = "",
-        xbl = "",
-        live = ""
+        discord = ""
     }
 
     --Loop over all identifiers
@@ -23,33 +18,22 @@ function ExtractIdentifiers(src)
         local id = GetPlayerIdentifier(src, i)
 
         --Convert it to a nice table.
-        if string.find(id, "steam") then
-            identifiers.steam = id
-        elseif string.find(id, "ip") then
-            identifiers.ip = id
-        elseif string.find(id, "discord") then
+        if string.find(id, "discord") then
             identifiers.discord = id
-        elseif string.find(id, "license") then
-            identifiers.license = id
-        elseif string.find(id, "xbl") then
-            identifiers.xbl = id
-        elseif string.find(id, "live") then
-            identifiers.live = id
         end
     end
-
     return identifiers
 end
 
 roleList = Config.WhitelistRoles;
-RoleTracker = {}
 
 AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     deferrals.defer()
     local src = source
     local identifierDiscord = "";
-	local discord = ExtractIdentifiers(src).discord:gsub("discord:", "");
-		for k, v in ipairs(GetPlayerIdentifiers(src)) do
+    deferrals.update("Checking Whitelist Permissions")
+
+    for k, v in ipairs(GetPlayerIdentifiers(src)) do
 				if string.sub(v, 1, string.len("discord:")) == "discord:" then
 					identifierDiscord = v
 				end
@@ -59,8 +43,9 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
         if not (roleIDs == false) then
             for i = 1, #roleList do
                 for j = 1, #roleIDs do
-                    if exports.Badger_Discord_API:CheckEqual(roleList[i][1], roleIDs[j]) then
-                        print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i][1])
+                    if exports.Badger_Discord_API:CheckEqual(roleList[i], roleIDs[j]) then
+                        print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i])
+                        deferrals.done()
                     else
                         deferrals.done(Config.WhitelistYeet)
                     end
