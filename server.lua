@@ -52,8 +52,11 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
                 end
             end
         else
-            deferrals.done(Config.DiscordYeet)
-            print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. " because they did not have Discord open")
-            CancelEvent();
+            deferrals.done(Config.RoleIdsYeet)
+            print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. " Could not connect because role id\'s were not present")
         end
-    end)
+    else
+        deferrals.done(Config.DiscordYeet)
+        print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. " because they did not have Discord open")
+    end
+end)
