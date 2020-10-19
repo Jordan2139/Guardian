@@ -17,7 +17,7 @@ WhitelistYeet = 'Sorry but this is a whitelisted community if you would like to 
 RoleIdsYeet = 'Sorry but I could not find your role ID\'s please reconnect and if this persists please contact the server developer',
 WhitelistRoles = { -- Roles that you assigned in Badgers API that should pass the whitelist
     "Whitelisted",
-    "MaybeWhitelisted"},
+    "MaybeWhitelisted",
     "ScrewItMakeThis",
 },
 }
