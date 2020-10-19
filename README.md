@@ -16,9 +16,9 @@ DiscordYeet = 'Sorry but this server reqiures you to have Discord (Desktop Editi
 WhitelistYeet = 'Sorry but this is a whitelisted community if you would like to join please see our website- WEBSITE to apply!', -- Message to client if they are not whitelisted
 RoleIdsYeet = 'Sorry but I could not find your role ID\'s please reconnect and if this persists please contact the server developer',
 WhitelistRoles = { -- Roles that you assigned in Badgers API that should pass the whitelist
-    {"Whitelisted"},
-    {"MaybeWhitelisted"},
-    {"ScrewItMakeThis"},
+    "Whitelisted",
+    "MaybeWhitelisted"},
+    "ScrewItMakeThis",
 },
 }
 --------------------------
