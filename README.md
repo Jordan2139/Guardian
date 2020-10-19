@@ -29,4 +29,4 @@ WhitelistRoles = { -- Roles that you assigned in Badgers API that should pass th
 - [Faxes](https://github.com/FAXES)- Original Discord whitelist script
 - [Badger](https://github.com/JaredScar)- Amazing API, helping me figure out a deferral issue
 # TJH Development Discord
-[![Developer Discord](https://discordapp.com/api/guilds/696266949348425739/widget.png?style=banner4)(https://discord.com/invite/x7cYjg5)
+[![Developer Discord](https://discordapp.com/api/guilds/696266949348425739/widget.png?style=banner4)](https://discord.com/invite/x7cYjg5)
