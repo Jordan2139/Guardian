@@ -2,7 +2,7 @@
 -- Guardian- A Simple FiveM Script, Made By Jordan.#2139 --
 -----------------------------------------------------------
 
-fx_version "bodacious"
+fx_version "cerulean"
 game "gta5"
 
 -- Define the resource metadata

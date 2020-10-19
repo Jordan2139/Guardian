@@ -38,25 +38,35 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
 					identifierDiscord = v
 				end
         end
-    if identifierDiscord then
-        local roleIDs = exports.Badger_Discord_API:GetDiscordRoles(src)
-        if not (roleIDs == false) then
-            for i = 1, #roleList do
-                for j = 1, #roleIDs do
-                    if exports.Badger_Discord_API:CheckEqual(roleList[i], roleIDs[j]) then
-                        print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i])
-                        deferrals.done()
-                    else
-                        deferrals.done(Config.WhitelistYeet)
+        local isWhitelisted = false;
+        if identifierDiscord then
+                local roleIDs = exports.Badger_Discord_API:GetDiscordRoles(src)
+                if not (roleIDs == false) then
+                    for i = 1, #roleList do
+                        for j = 1, #roleIDs do
+                            if exports.Badger_Discord_API:CheckEqual(roleList[i], roleIDs[j]) then
+                                print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i])
+                                isWhitelisted = true;
+                            else
+                                if isWhitelisted == false then 
+                                  isWhitelisted = false;
+                                end
+                            end
+                        end
                     end
+                else
+                    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Could not connect because role id\'s were not present")
+                    deferrals.done(Config.RoleIdsYeet)
+                    return;
                 end
+            else
+                print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. "  because they did not have Discord open")
+                deferrals.done(Config.DiscordYeet)
+                return;
             end
+        if isWhitelisted then 
+          deferrals.done();
         else
-            deferrals.done(Config.RoleIdsYeet)
-            print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. " Could not connect because role id\'s were not present")
+          deferrals.done(Config.WhitelistYeet);
         end
-    else
-        deferrals.done(Config.DiscordYeet)
-        print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. " because they did not have Discord open")
-    end
 end)
