@@ -18,7 +18,7 @@ local label =
   ||  / /_/ / /_/ / /_/ / /  / /_/ / / /_/ / / / /
   ||  \____/\__,_/\__,_/_/   \__,_/_/\__,_/_/ /_/ 
   ||                                                
-  ||           Created by Jordan.#2139
+  ||            Created by Jordan.#2139
   ||]]
   
 Citizen.CreateThread(function()
