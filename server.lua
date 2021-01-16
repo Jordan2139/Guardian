@@ -32,6 +32,8 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     local src = source
     local identifierDiscord = "";
     deferrals.update("Checking Whitelist Permissions")
+		
+    Citizen.Wait(0); -- Necessary Citizen.Wait() before deferrals.done()
 
     for k, v in ipairs(GetPlayerIdentifiers(src)) do
 				if string.sub(v, 1, string.len("discord:")) == "discord:" then
