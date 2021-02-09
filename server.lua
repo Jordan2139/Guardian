@@ -31,7 +31,7 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     deferrals.defer()
     local src = source
     local identifierDiscord = "";
-    deferrals.update("Checking Whitelist Permissions")
+    deferrals.update("Checking Whitelist Permissions For " Config.ServerName)
 		
     Citizen.Wait(0); -- Necessary Citizen.Wait() before deferrals.done()
 
