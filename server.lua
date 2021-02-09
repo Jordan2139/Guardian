@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------------
 -- Guardian- A Far More Advanced FiveM Script Than DiscordWhitelist, Made By Jordan.#2139 --
 --------------------------------------------------------------------------------------------
- 
+
 ----------------------------------------------------------------------------------------------
                   -- !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! --
         -- DO NOT TOUCH THIS FILE OR YOU /WILL/ FUCK SHIT UP! EDIT THE CONFIG.LUA --
