@@ -7,7 +7,6 @@
         -- DO NOT TOUCH THIS FILE OR YOU /WILL/ FUCK SHIT UP! EDIT THE CONFIG.LUA --
 -- DO NOT BE STUPID AND WHINE TO ME ABOUT THIS BEING BROKEN IF YOU TOUCHED THE LINES BELOW. --
 ----------------------------------------------------------------------------------------------
-
 function ExtractIdentifiers(src)
     local identifiers = {
         discord = ""
@@ -28,10 +27,11 @@ end
 roleList = Config.WhitelistRoles;
 
 AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
+    local Config = Config
     deferrals.defer()
     local src = source
     local identifierDiscord = "";
-    deferrals.update("Checking Whitelist Permissions For " Config.ServerName)
+    deferrals.update("Checking Whitelist Permissions For " .. Config.ServerName)
 		
     Citizen.Wait(0); -- Necessary Citizen.Wait() before deferrals.done()
 

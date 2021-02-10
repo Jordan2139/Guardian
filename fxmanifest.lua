@@ -9,7 +9,7 @@ game "gta5"
 name "Guardian"
 description "A simple whitelist script that utilizes Badger's new API"
 author "Jordan.#2139"
-version "v1.2.0"
+version "v1.3.0"
 
 
 server_script "config.lua"
