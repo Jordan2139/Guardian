@@ -1,6 +1,6 @@
------------------------------------------------------------
--- Guardian- A Simple FiveM Script, Made By Jordan.#2139 --
------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+-- Guardian- A Far More Advanced FiveM Script Than DiscordWhitelist, Made By Jordan.#2139 --
+--------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
                   -- !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! --
@@ -31,7 +31,7 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     deferrals.defer()
     local src = source
     local identifierDiscord = "";
-    deferrals.update("Checking Whitelist Permissions")
+    deferrals.update("Checking Whitelist Permissions For " Config.ServerName)
 		
     Citizen.Wait(0); -- Necessary Citizen.Wait() before deferrals.done()
 
@@ -48,6 +48,7 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
                         for j = 1, #roleIDs do
                             if exports.Badger_Discord_API:CheckEqual(roleList[i], roleIDs[j]) then
                                 print("[Guardian] (playerConnecting) Allowing " .. GetPlayerName(src) .. " to join with the role "  .. roleList[i])
+				print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Attempted to connect with Guardian, They were allowed entry")
                                 isWhitelisted = true;
                             else
                                 if isWhitelisted == false then 
@@ -58,12 +59,14 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
                     end
                 else
                     print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Could not connect because role id\'s were not present")
+		    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Attempted to connect with Guardian, however they failed")
                     deferrals.done(Config.RoleIdsYeet)
                     CancelEvent()
                     return;
                 end
             else
                 print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. "  because they did not have Discord open")
+		print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Attempted to connect with Guardian, however they failed")
                 deferrals.done(Config.DiscordYeet)
                 CancelEvent()
                 return;
