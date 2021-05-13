@@ -31,15 +31,19 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     deferrals.defer()
     local src = source
     local identifierDiscord = "";
+    local identifierSteam = nil;
     deferrals.update("Checking Whitelist Permissions For " .. Config.ServerName)
 		
     Citizen.Wait(0); -- Necessary Citizen.Wait() before deferrals.done()
 
     for k, v in ipairs(GetPlayerIdentifiers(src)) do
-				if string.sub(v, 1, string.len("discord:")) == "discord:" then
-					identifierDiscord = v
-				end
+        if string.sub(v, 1, string.len("discord:")) == "discord:" then
+            identifierDiscord = v
         end
+        if string.sub(v, 1, string.len("steam:")) == "steam:" then
+            identifierSteam = v
+        end
+    end
         local isWhitelisted = false;
         if identifierDiscord then
                 local roleIDs = exports.Badger_Discord_API:GetDiscordRoles(src)
@@ -58,15 +62,15 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
                         end
                     end
                 else
-                    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Could not connect because role id\'s were not present")
-		    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Attempted to connect with Guardian, however they failed")
+                    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) or identifierSteam or "NO ID FOUND" .. "  Could not connect because role id\'s were not present")
+		    print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) or identifierSteam or "NO ID FOUND" .. "  Attempted to connect with Guardian, however they failed")
                     deferrals.done(Config.RoleIdsYeet)
                     CancelEvent()
                     return;
                 end
             else
-                print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) .. "  because they did not have Discord open")
-		print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) .. "  Attempted to connect with Guardian, however they failed")
+                print("[Guardian] (playerConnecting) Declined connection from " .. GetPlayerName(src) or identifierSteam or "NO ID FOUND" .. "  because they did not have Discord open")
+		print("[Guardian] (playerConnecting) Player " .. GetPlayerName(src) or identifierSteam or "NO ID FOUND" .. "  Attempted to connect with Guardian, however they failed")
                 deferrals.done(Config.DiscordYeet)
                 CancelEvent()
                 return;
